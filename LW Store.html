@@ -1336,10 +1336,12 @@
 <script>
   // ◆◆◆ COLE AQUI AS URLs DAS PLANILHAS GOOGLE SHEETS ◆◆◆
   // Formato: https://docs.google.com/spreadsheets/d/SEU_ID/gviz/tq?tqx=out:csv&sheet=NOME_DA_ABA
-  const SHEET_COMPRAR = "COLE_AQUI_URL_CSV_COMPRAR";
-  const SHEET_VENDER  = "COLE_AQUI_URL_CSV_VENDER";
-  const SHEET_ITENS   = "COLE_AQUI_URL_CSV_ITENS";
-  const SHEET_CHARS   = "COLE_AQUI_URL_CSV_CHARS";
+  const _SID = "15UMu-2NQha71yiZ5acVuAGUeVsZ72KEwGM4IMxxwrYI";
+  const _CSV = (gid) => `https://docs.google.com/spreadsheets/d/${_SID}/gviz/tq?tqx=out:csv&gid=${gid}`;
+  const SHEET_COMPRAR = _CSV("0");
+  const SHEET_VENDER  = _CSV("259238906");
+  const SHEET_ITENS   = _CSV("609868605");
+  const SHEET_CHARS   = _CSV("246584426");
 
   // ─── Contato ───
   const WPP_BASE = "https://wa.me/5541986136347";
