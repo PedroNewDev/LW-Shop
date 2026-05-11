@@ -1335,8 +1335,11 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 <script>
   // ◆◆◆ COLE AQUI AS URLs DAS PLANILHAS GOOGLE SHEETS ◆◆◆
-  const SHEET_ITENS = "COLE_AQUI_URL_CSV_ITENS";
-  const SHEET_CHARS = "COLE_AQUI_URL_CSV_CHARS";
+  // Formato: https://docs.google.com/spreadsheets/d/SEU_ID/gviz/tq?tqx=out:csv&sheet=NOME_DA_ABA
+  const SHEET_COMPRAR = "COLE_AQUI_URL_CSV_COMPRAR";
+  const SHEET_VENDER  = "COLE_AQUI_URL_CSV_VENDER";
+  const SHEET_ITENS   = "COLE_AQUI_URL_CSV_ITENS";
+  const SHEET_CHARS   = "COLE_AQUI_URL_CSV_CHARS";
 
   // ─── Contato ───
   const WPP_BASE = "https://wa.me/5541986136347";
@@ -1421,9 +1424,9 @@
     return `<svg width="22" height="22"><use href="#${key}"/></svg>`;
   }
 
-  function renderBuy() {
+  function renderBuy(rows = BUY_ROWS) {
     const el = document.getElementById('buyTable');
-    el.innerHTML = BUY_ROWS.map(r => `
+    el.innerHTML = rows.map(r => `
       <div class="trade-row">
         <div class="icon-wrap">${iconHtml(r.icon)}</div>
         <div class="name">${r.name}<small>${r.desc}</small></div>
@@ -1438,9 +1441,9 @@
     `).join("");
   }
 
-  function renderSell() {
+  function renderSell(rows = SELL_ROWS) {
     const el = document.getElementById('sellTable');
-    el.innerHTML = SELL_ROWS.map(r => `
+    el.innerHTML = rows.map(r => `
       <div class="trade-row sell">
         <div class="icon-wrap">${iconHtml(r.icon)}</div>
         <div class="name">${r.name}<small>${r.desc}</small></div>
@@ -1623,15 +1626,27 @@
   }
 
   async function boot() {
+    // render hardcoded instantly, depois sobrescreve com sheet se disponível
     renderBuy();
     renderSell();
     document.getElementById('lastUpdateBuy').textContent = formatNow();
     document.getElementById('lastUpdateSell').textContent = formatNow();
 
-    const [itensRes, charsRes] = await Promise.all([
-      loadSheet(SHEET_ITENS, ["nome","categoria","preco","estoque","imagem_url","descricao"]),
-      loadSheet(SHEET_CHARS, ["nome","vocacao","level","ml_ou_dist","skill_principal","shielding","equipamentos","preco","imagem_url"]),
+    const [comprarRes, venderRes, itensRes, charsRes] = await Promise.all([
+      loadSheet(SHEET_COMPRAR, ["nome","descricao","preco","icon"]),
+      loadSheet(SHEET_VENDER,  ["nome","descricao","preco","preco_usd","icon"]),
+      loadSheet(SHEET_ITENS,   ["nome","categoria","preco","estoque","imagem_url","descricao"]),
+      loadSheet(SHEET_CHARS,   ["nome","vocacao","level","ml_ou_dist","skill_principal","shielding","equipamentos","preco","imagem_url"]),
     ]);
+
+    if (comprarRes.data.length) {
+      renderBuy(comprarRes.data.map(r => ({ name: r.nome, desc: r.descricao, price: r.preco, icon: r.icon })));
+      document.getElementById('lastUpdateBuy').textContent = formatNow();
+    }
+    if (venderRes.data.length) {
+      renderSell(venderRes.data.map(r => ({ name: r.nome, desc: r.descricao, price: r.preco, usd: r.preco_usd, icon: r.icon })));
+      document.getElementById('lastUpdateSell').textContent = formatNow();
+    }
 
     renderItens(itensRes.data);
     renderChars(charsRes.data);
