@@ -1335,13 +1335,11 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 <script>
   // ◆◆◆ COLE AQUI AS URLs DAS PLANILHAS GOOGLE SHEETS ◆◆◆
-  // Formato: https://docs.google.com/spreadsheets/d/SEU_ID/gviz/tq?tqx=out:csv&sheet=NOME_DA_ABA
-  const _SID = "15UMu-2NQha71yiZ5acVuAGUeVsZ72KEwGM4IMxxwrYI";
-  const _CSV = (gid) => `https://docs.google.com/spreadsheets/d/${_SID}/gviz/tq?tqx=out:csv&gid=${gid}`;
-  const SHEET_COMPRAR = _CSV("0");
-  const SHEET_VENDER  = _CSV("259238906");
-  const SHEET_ITENS   = _CSV("609868605");
-  const SHEET_CHARS   = _CSV("246584426");
+  const _BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTxB8SqOH7hUIngcDe_hLb5ZO6urgG6DUrB3uB8C7oU2hyGXdEC9fm7VQ5O6w7mVqGMyL8pkOyNASN4/pub?single=true&output=csv";
+  const SHEET_COMPRAR = `${_BASE}&gid=0`;
+  const SHEET_VENDER  = `${_BASE}&gid=259238906`;
+  const SHEET_ITENS   = `${_BASE}&gid=609868605`;
+  const SHEET_CHARS   = `${_BASE}&gid=246584426`;
 
   // ─── Contato ───
   const WPP_BASE = "https://wa.me/5541986136347";

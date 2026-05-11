@@ -1173,11 +1173,11 @@
   <div class="pay-grid">
     <div class="pay-card">
       <div class="icon">
-        <svg width="36" height="36" viewBox="0 0 100 100">
-          <path fill="#32BCAD" d="M61.5,38.7L53,30.2a4.4,4.4,0,0,0-6.2,0L38.5,38.7A2.3,2.3,0,0,1,36.8,39.4H33l13.6,13.6a5,5,0,0,0,7.1,0L67.5,39.4H63.3A2.3,2.3,0,0,1,61.5,38.7Z"/>
-          <path fill="#32BCAD" d="M38.5,61.3l8.5,8.5a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,63.5,60.6H67L53.4,46.9a5,5,0,0,0-7.1,0L32.5,60.6h4.3A2.3,2.3,0,0,1,38.5,61.3Z"/>
-          <path fill="#32BCAD" d="M79.5,43.7l-6.5-6.5H68.8A2.3,2.3,0,0,1,67,36.5L59.1,28.5a4.4,4.4,0,0,0-6.2,0L46.6,34.8l13,13a3.1,3.1,0,0,1,0,4.4l-13,13,6.3,6.3a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,69,62.8H73l6.5-6.5A4.4,4.4,0,0,0,79.5,43.7Z"/>
-          <path fill="#32BCAD" d="M20.5,56.3l6.5,6.5h4.2A2.3,2.3,0,0,1,33,63.5l8.5,8.5a4.4,4.4,0,0,0,6.2,0l6.3-6.3-13-13a3.1,3.1,0,0,1,0-4.4l13-13-6.3-6.3a4.4,4.4,0,0,0-6.2,0L32.9,37.2A2.3,2.3,0,0,1,31.2,37.2H27l-6.5,6.5A4.4,4.4,0,0,0,20.5,56.3Z"/>
+        <svg width="52" height="52" viewBox="0 0 100 100" fill="#32BCAD">
+          <path d="M50,6 C44,6 27,18 20,30 C25,30 30,33 34,38 L50,54 L66,38 C70,33 75,30 80,30 C73,18 56,6 50,6Z"/>
+          <path d="M50,94 C56,94 73,82 80,70 C75,70 70,67 66,62 L50,46 L34,62 C30,67 25,70 20,70 C27,82 44,94 50,94Z"/>
+          <path d="M6,50 C6,44 18,27 30,20 C30,25 33,30 38,34 L54,50 L38,66 C33,70 30,75 30,80 C18,73 6,56 6,50Z"/>
+          <path d="M94,50 C94,56 82,73 70,80 C70,75 67,70 62,66 L46,50 L62,34 C67,30 70,25 70,20 C82,27 94,44 94,50Z"/>
         </svg>
       </div>
       <div>
@@ -1335,8 +1335,11 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 <script>
   // ◆◆◆ COLE AQUI AS URLs DAS PLANILHAS GOOGLE SHEETS ◆◆◆
-  const SHEET_ITENS = "COLE_AQUI_URL_CSV_ITENS";
-  const SHEET_CHARS = "COLE_AQUI_URL_CSV_CHARS";
+  const _BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTxB8SqOH7hUIngcDe_hLb5ZO6urgG6DUrB3uB8C7oU2hyGXdEC9fm7VQ5O6w7mVqGMyL8pkOyNASN4/pub?single=true&output=csv";
+  const SHEET_COMPRAR = `${_BASE}&gid=0`;
+  const SHEET_VENDER  = `${_BASE}&gid=259238906`;
+  const SHEET_ITENS   = `${_BASE}&gid=609868605`;
+  const SHEET_CHARS   = `${_BASE}&gid=246584426`;
 
   // ─── Contato ───
   const WPP_BASE = "https://wa.me/5541986136347";
@@ -1421,9 +1424,9 @@
     return `<svg width="22" height="22"><use href="#${key}"/></svg>`;
   }
 
-  function renderBuy() {
+  function renderBuy(rows = BUY_ROWS) {
     const el = document.getElementById('buyTable');
-    el.innerHTML = BUY_ROWS.map(r => `
+    el.innerHTML = rows.map(r => `
       <div class="trade-row">
         <div class="icon-wrap">${iconHtml(r.icon)}</div>
         <div class="name">${r.name}<small>${r.desc}</small></div>
@@ -1438,17 +1441,17 @@
     `).join("");
   }
 
-  function renderSell() {
+  function renderSell(rows = SELL_ROWS) {
     const el = document.getElementById('sellTable');
-    el.innerHTML = SELL_ROWS.map(r => `
+    el.innerHTML = rows.map(r => `
       <div class="trade-row sell">
         <div class="icon-wrap">${iconHtml(r.icon)}</div>
         <div class="name">${r.name}<small>${r.desc}</small></div>
         <div class="price">${r.price}</div>
-        <div class="price-usd">${r.usd}</div>
+        <div class="price-usd">${r.usd || ''}</div>
         <div class="payment-chip" style="display:inline-flex;align-items:center;gap:4px">${PIX_ICON_MINI}PIX&nbsp;·&nbsp;${BNB_ICON_MINI}Binance</div>
         <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener"
-           href="${wppLink(`Olá! Quero vender ${r.name} (${r.desc}). Sua oferta é ${r.price}.`)}">
+           href="${wppLink(`Olá! Quero vender ${r.name} (${r.desc}). Sua oferta ainda é ${r.price}?`)}">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
           Vender
         </a>
@@ -1458,7 +1461,7 @@
 
   // ─── Render: itens ───
   const WPP_ICON_SMALL = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>`;
-  const PIX_ICON_MINI = `<svg width="13" height="13" viewBox="0 0 100 100" style="vertical-align:middle;flex-shrink:0"><path fill="#32BCAD" d="M61.5,38.7L53,30.2a4.4,4.4,0,0,0-6.2,0L38.5,38.7A2.3,2.3,0,0,1,36.8,39.4H33l13.6,13.6a5,5,0,0,0,7.1,0L67.5,39.4H63.3A2.3,2.3,0,0,1,61.5,38.7Z"/><path fill="#32BCAD" d="M38.5,61.3l8.5,8.5a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,63.5,60.6H67L53.4,46.9a5,5,0,0,0-7.1,0L32.5,60.6h4.3A2.3,2.3,0,0,1,38.5,61.3Z"/><path fill="#32BCAD" d="M79.5,43.7l-6.5-6.5H68.8A2.3,2.3,0,0,1,67,36.5L59.1,28.5a4.4,4.4,0,0,0-6.2,0L46.6,34.8l13,13a3.1,3.1,0,0,1,0,4.4l-13,13,6.3,6.3a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,69,62.8H73l6.5-6.5A4.4,4.4,0,0,0,79.5,43.7Z"/><path fill="#32BCAD" d="M20.5,56.3l6.5,6.5h4.2A2.3,2.3,0,0,1,33,63.5l8.5,8.5a4.4,4.4,0,0,0,6.2,0l6.3-6.3-13-13a3.1,3.1,0,0,1,0-4.4l13-13-6.3-6.3a4.4,4.4,0,0,0-6.2,0L32.9,37.2A2.3,2.3,0,0,1,31.2,37.2H27l-6.5,6.5A4.4,4.4,0,0,0,20.5,56.3Z"/></svg>`;
+  const PIX_ICON_MINI = `<svg width="13" height="13" viewBox="0 0 100 100" fill="#32BCAD" style="vertical-align:middle;flex-shrink:0"><path d="M50,6 C44,6 27,18 20,30 C25,30 30,33 34,38 L50,54 L66,38 C70,33 75,30 80,30 C73,18 56,6 50,6Z"/><path d="M50,94 C56,94 73,82 80,70 C75,70 70,67 66,62 L50,46 L34,62 C30,67 25,70 20,70 C27,82 44,94 50,94Z"/><path d="M6,50 C6,44 18,27 30,20 C30,25 33,30 38,34 L54,50 L38,66 C33,70 30,75 30,80 C18,73 6,56 6,50Z"/><path d="M94,50 C94,56 82,73 70,80 C70,75 67,70 62,66 L46,50 L62,34 C67,30 70,25 70,20 C82,27 94,44 94,50Z"/></svg>`;
   const BNB_ICON_MINI = `<svg width="13" height="13" viewBox="0 0 100 100" fill="#F0B90B" style="vertical-align:middle;flex-shrink:0"><path d="M50,13 L57,20 L50,27 L43,20Z"/><path d="M50,73 L57,80 L50,87 L43,80Z"/><path d="M13,50 L20,43 L27,50 L20,57Z"/><path d="M73,50 L80,43 L87,50 L80,57Z"/><path d="M50,33 L67,50 L50,67 L33,50Z"/><path d="M33,33 L40,26 L50,33 L40,40Z"/><path d="M67,33 L60,26 L50,33 L60,40Z"/><path d="M33,67 L40,74 L50,67 L40,60Z"/><path d="M67,67 L60,74 L50,67 L60,60Z"/></svg>`;
 
   function renderItens(items) {
@@ -1622,6 +1625,24 @@
     return `${pad(d.getDate())}/${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
   }
 
+  // SHEET_VENDER (o que o dono vende) → seção Comprar do site (player compra)
+  // SHEET_COMPRAR (o que o dono compra) → seção Vender do site (player vende)
+  async function fetchPrices() {
+    const [venderRes, comprarRes] = await Promise.all([
+      loadSheet(SHEET_VENDER,  ["nome","descricao","preco","icon"]),
+      loadSheet(SHEET_COMPRAR, ["nome","descricao","preco","preco_usd","icon"]),
+    ]);
+
+    if (venderRes.data.length) {
+      renderBuy(venderRes.data.map(r => ({ name: r.nome, desc: r.descricao, price: r.preco, icon: r.icon })));
+      document.getElementById('lastUpdateBuy').textContent = formatNow();
+    }
+    if (comprarRes.data.length) {
+      renderSell(comprarRes.data.map(r => ({ name: r.nome, desc: r.descricao, price: r.preco, usd: r.preco_usd || '', icon: r.icon })));
+      document.getElementById('lastUpdateSell').textContent = formatNow();
+    }
+  }
+
   async function boot() {
     renderBuy();
     renderSell();
@@ -1633,8 +1654,12 @@
       loadSheet(SHEET_CHARS, ["nome","vocacao","level","ml_ou_dist","skill_principal","shielding","equipamentos","preco","imagem_url"]),
     ]);
 
+    await fetchPrices();
     renderItens(itensRes.data);
     renderChars(charsRes.data);
+
+    // atualiza preços automaticamente a cada 5 minutos
+    setInterval(fetchPrices, 30 * 1000);
   }
 
   // ─── Mobile menu ───
