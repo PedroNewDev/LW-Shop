@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LW STORE — Mais de 1 ano no mercado</title>
+<meta name="description" content="Compra e venda de runas, gold, itens raros e chars no Miracle 7.4. Pagamento na hora via PIX ou Binance." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@200;500;600;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface-2: #0d0d14;
+    --border: #1e1e2e;
+    --border-strong: #2a2a3e;
+    --gold: #c9a84c;
+    --gold-soft: #e6c870;
+    --cyan: #00d4ff;
+    --cyan-soft: #66e6ff;
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --purple: #a855f7;
+    --text: #e7e7ee;
+    --text-dim: #9899a8;
+    --text-muted: #6b6c7d;
+    --binance: #F0B90B;
+    --whatsapp: #25D366;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Ambient grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.07), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 20%, rgba(0,212,255,0.04), transparent 60%),
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px) 0 0 / 100% 48px,
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px) 0 0 / 48px 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* ───────── HEADER ───────── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.72);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: 18px;
+  }
+  .brand-mark {
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(0,212,255,0.18), transparent 70%);
+    position: relative;
+  }
+  .brand-mark::before {
+    content: ''; position: absolute; inset: -4px;
+    border: 1px dashed rgba(201,168,76,0.35);
+    border-radius: 50%;
+  }
+  .brand-text .lw { color: var(--gold); }
+  .brand-text .sep { color: var(--text-muted); margin: 0 6px; }
+  .brand-text .store { color: var(--cyan); }
+
+  nav.primary { display: flex; gap: 4px; }
+  nav.primary a {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dim);
+    border-radius: 6px;
+    transition: color .15s, background .15s;
+  }
+  nav.primary a:hover { color: var(--text); background: var(--surface); }
+
+  .online-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--green);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 999px;
+    background: rgba(34,197,94,0.08);
+  }
+  /* Mode badge in header */
+  .mode-badge {
+    display: none;
+    align-items: center; gap: 8px;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    background: rgba(255,255,255,0.02);
+  }
+  .mode-badge.show { display: inline-flex; }
+  .mode-badge.buyer { color: var(--green); }
+  .mode-badge.seller { color: var(--cyan); }
+  .mode-badge .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 0 currentColor;
+    animation: pulse 2s ease-out infinite;
+    opacity: 0.9;
+  }
+
+  /* Switch mode button */
+  #switchModeBtn {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    border: 1px solid rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.05);
+    color: var(--gold);
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  #switchModeBtn:hover {
+    background: rgba(201,168,76,0.12);
+    border-color: rgba(201,168,76,0.65);
+  }
+  #switchModeBtn.show { display: inline-flex; }
+
+  /* Empty state before mode is chosen */
+  .mode-empty {
+    padding: 120px 24px 160px;
+    text-align: center;
+  }
+  .mode-empty .frame {
+    display: inline-flex; align-items: center; gap: 16px;
+    padding: 18px 28px;
+    border: 1px dashed #2a2a3e;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.015);
+  }
+  .mode-empty .arrow {
+    color: var(--gold);
+    opacity: 0.5;
+  }
+  .mode-empty .msg {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: #444;
+    letter-spacing: 0.02em;
+  }
+
+  .online-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+  }
+
+  .menu-toggle { display: none; }
+
+  /* ───────── HERO ───────── */
+  .hero {
+    padding: 140px 0 96px;
+    text-align: center;
+    position: relative;
+    isolation: isolate;
+  }
+  /* Technical grid + center glow specific to hero */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 50% 55% at 50% 45%, rgba(201,168,76,0.04), transparent 70%),
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 40px 40px;
+    -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 80%);
+            mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 80%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ── 1. metadata line ── */
+  .hero-meta-line {
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.15em;
+    margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .hero-meta-line .cursor {
+    display: inline-block;
+    width: 7px; height: 12px;
+    background: var(--gold);
+    animation: blink 1s steps(2,start) infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ── 2. main title ── */
+  .hero-title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(14px, 2vw, 24px);
+    font-family: var(--font-display);
+    font-size: clamp(72px, 12vw, 120px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0 auto 28px;
+    padding: 8px 0 12px;
+  }
+  .hero-title .lw {
+    color: var(--gold);
+    font-weight: 900;
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 2px;
+    line-height: 0.95;
+  }
+  .hero-title .st {
+    color: var(--cyan);
+    font-weight: 200;
+    transition: text-shadow .15s;
+  }
+  .hero-title:hover .st {
+    animation: glitch 0.1s linear 2;
+  }
+  @keyframes glitch {
+    0%   { text-shadow: 2px 0 0 rgba(239,68,68,0.7), -2px 0 0 rgba(0,212,255,0.7); }
+    50%  { text-shadow: -2px 0 0 rgba(239,68,68,0.7), 2px 0 0 rgba(0,212,255,0.7); }
+    100% { text-shadow: none; }
+  }
+  .hero-title .crosshair {
+    color: var(--gold);
+    opacity: 0.8;
+    width: 32px; height: 32px;
+    flex-shrink: 0;
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  /* ── 3. technical divider ── */
+  .hero-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 480px;
+    height: 16px;
+    margin: 0 auto 22px;
+  }
+  .hero-divider .line {
+    position: absolute; left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: var(--border);
+    transform: translateY(-50%);
+  }
+  .hero-divider .cap {
+    position: absolute; top: 50%;
+    width: 1px; height: 8px;
+    background: var(--gold);
+    opacity: 0.4;
+    transform: translateY(-50%);
+  }
+  .hero-divider .cap.l { left: 0; }
+  .hero-divider .cap.r { right: 0; }
+  .hero-divider .diamond-box {
+    position: relative;
+    width: 16px; height: 16px;
+    border: 1px solid var(--gold);
+    background: var(--bg);
+    transform: rotate(45deg);
+    display: grid; place-items: center;
+  }
+  .hero-divider .diamond-box::after {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--gold);
+  }
+
+  /* ── 4. subtitle ── */
+  .hero-sub {
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero-badges {
+    display: inline-flex; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .hero-badges .b {
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  .hero-badges .b:nth-child(1) { animation-delay: 0.2s; color: var(--green); }
+  .hero-badges .b:nth-child(2) { animation-delay: 0.4s; color: #888; }
+  .hero-badges .b:nth-child(3) { animation-delay: 0.6s; color: #888; }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* tagline — emphasized serif italic, on its own line */
+  .hero .tagline {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(26px, 3.6vw, 40px);
+    line-height: 1.2;
+    color: var(--text);
+    display: block;
+    margin: 12px auto 44px;
+    letter-spacing: 0.005em;
+  }
+  .hero .tagline em {
+    color: var(--gold);
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .hero-buttons {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: center;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  /* ───────── BUTTONS ───────── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: transform .15s, box-shadow .15s, background .15s, border-color .15s, color .15s;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #1a1408;
+    box-shadow: 0 0 0 1px rgba(201,168,76,0.4), 0 8px 24px -8px rgba(201,168,76,0.5);
+  }
+  .btn-gold:hover { background: var(--gold-soft); box-shadow: 0 0 0 1px rgba(230,200,112,0.6), 0 12px 32px -8px rgba(201,168,76,0.65); }
+
+  .btn-cyan {
+    background: var(--cyan);
+    color: #001821;
+    box-shadow: 0 0 0 1px rgba(0,212,255,0.4), 0 8px 24px -8px rgba(0,212,255,0.4);
+  }
+  .btn-cyan:hover { background: var(--cyan-soft); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .btn-whatsapp {
+    background: var(--whatsapp);
+    color: #053220;
+    box-shadow: 0 0 0 1px rgba(37,211,102,0.35);
+  }
+  .btn-whatsapp:hover { background: #2ee078; }
+  .btn-sm { padding: 9px 14px; font-size: 12px; }
+  .btn-block { width: 100%; }
+
+  /* ───────── SECTIONS ───────── */
+  section.block {
+    padding: 96px 0;
+    position: relative;
+  }
+  section.block + section.block { border-top: 1px solid var(--border); }
+  .section-head {
+    margin-bottom: 48px;
+    display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  }
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before {
+    content: ''; width: 24px; height: 1px; background: var(--gold);
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-bottom: 12px;
+    max-width: 720px;
+  }
+  .section-head p {
+    color: var(--text-dim);
+    font-size: 16px;
+    max-width: 540px;
+  }
+  .section-aside {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .section-aside .label { color: var(--text-muted); }
+  .section-aside .value { color: var(--gold); }
+
+  /* ───────── TABLE CARDS (compra/venda) ───────── */
+  .trade-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .trade-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+  .trade-row:last-child { border-bottom: none; }
+  .trade-row:hover { background: rgba(255,255,255,0.025); }
+  .trade-row .icon-wrap {
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--gold);
+  }
+  .trade-row .name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .trade-row .name small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0;
+    margin-top: 2px;
+  }
+  .price {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .price-usd {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .payment-chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  /* trade-row variant for sell */
+  .trade-row.sell { grid-template-columns: 56px 1fr auto auto auto auto; }
+
+  /* ───────── ITEM GRID ───────── */
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .card:hover {
+    border-color: rgba(201,168,76,0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -16px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.15);
+  }
+
+  .item-card .img-box {
+    aspect-ratio: 1 / 1;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    display: grid; place-items: center;
+    position: relative;
+    padding: 24px;
+  }
+  .item-card .img-box img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
+  .img-box .placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+  .item-card .body {
+    padding: 18px 20px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    flex: 1;
+  }
+  .item-card .top-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    flex-wrap: wrap;
+  }
+  .item-card .name {
+    font-family: var(--font-display);
+    color: var(--gold);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .badge.cat { color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .badge.stock-in { color: var(--green); background: rgba(34,197,94,0.06); }
+  .badge.stock-out { color: var(--red); background: rgba(239,68,68,0.06); }
+  .badge.voc-druid { color: var(--cyan); background: rgba(0,212,255,0.08); }
+  .badge.voc-sorc { color: var(--purple); background: rgba(168,85,247,0.08); }
+  .badge.voc-ek { color: var(--red); background: rgba(239,68,68,0.08); }
+  .badge.voc-rp { color: var(--amber); background: rgba(245,158,11,0.08); }
+  .badge.voc-generic { color: var(--text-dim); }
+
+  .item-card .desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .item-card .price-block {
+    margin-top: auto;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+  .item-card .price-block .price { font-size: 22px; }
+  .item-card .price-block .unit {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* CHAR cards */
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .char-card .img-box {
+    height: 200px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    display: grid; place-items: center;
+    color: var(--text-muted);
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+  }
+  .char-card .img-box img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+  }
+  .char-card .body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  .char-card .header-row {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .char-card .name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.01em;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+  }
+  .stat {
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+  .stat .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .stat .value {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .stat .value.cyan { color: var(--cyan); }
+  .equip-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .equip-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .equip-list .check {
+    color: var(--green);
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 12px;
+  }
+  .char-card .price-block {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+    padding: 16px 0 4px;
+    border-top: 1px dashed var(--border);
+  }
+  .char-card .price-block .price { font-size: 28px; }
+
+  /* ───────── LOADING ───────── */
+  .loading {
+    grid-column: 1 / -1;
+    padding: 80px 24px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .spinner {
+    width: 36px; height: 36px;
+    border: 2px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 18px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .empty {
+    grid-column: 1 / -1;
+    padding: 64px 24px;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    color: var(--text-muted);
+  }
+  .empty svg { margin: 0 auto 16px; opacity: 0.4; }
+
+  /* ───────── ACCENT BANNER ───────── */
+  .accent-banner {
+    margin-top: 40px;
+    padding: 28px 32px;
+    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .accent-banner::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    border-radius: 14px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--gold), transparent 60%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+  }
+  .accent-banner.cyan::before {
+    background: linear-gradient(135deg, var(--cyan), transparent 60%);
+  }
+  .accent-banner .text {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .accent-banner .text small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  /* ───────── PAYMENT ───────── */
+  .pay-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .pay-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    display: flex; gap: 24px; align-items: center;
+  }
+  .pay-card .icon {
+    width: 64px; height: 64px;
+    display: grid; place-items: center;
+    border-radius: 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .pay-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin-bottom: 4px;
+    letter-spacing: 0.01em;
+  }
+  .pay-card p {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  /* ───────── BIG BANNER ───────── */
+  .negotiation-banner {
+    padding: 48px 40px;
+    border-radius: 16px;
+    background:
+      radial-gradient(ellipse at top right, rgba(201,168,76,0.08), transparent 60%),
+      var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .negotiation-banner::before {
+    content: ''; position: absolute; inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--gold), rgba(201,168,76,0.1) 50%, transparent);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
+  }
+  .negotiation-banner .icon-row {
+    display: flex; justify-content: center; gap: 16px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  .negotiation-banner h3 {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3.4vw, 32px);
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .negotiation-banner p {
+    color: var(--text-dim);
+    max-width: 560px;
+    margin: 0 auto 24px;
+    font-size: 15px;
+  }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 0 40px;
+    margin-top: 32px;
+    background: var(--surface-2);
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-inner .legal {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .footer-inner .contact {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .footer-inner .contact .label { color: var(--text-muted); }
+
+  /* ───────── FLOATING WPP ───────── */
+  .float-wpp {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 90;
+    width: 60px; height: 60px;
+    background: var(--whatsapp);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    box-shadow: 0 12px 32px -8px rgba(37,211,102,0.5), 0 0 0 1px rgba(37,211,102,0.3);
+    transition: transform .15s;
+  }
+  .float-wpp:hover { transform: scale(1.08); }
+  .float-wpp::after {
+    content: ''; position: absolute; inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(37,211,102,0.4);
+    animation: pulseRing 2.4s ease-out infinite;
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* ───────── RESPONSIVE ───────── */
+  @media (max-width: 920px) {
+    .item-grid { grid-template-columns: repeat(2, 1fr); }
+    .char-grid { grid-template-columns: 1fr; }
+    .pay-grid { grid-template-columns: 1fr; }
+    nav.primary { display: none; }
+    .online-badge { display: none; }
+    .menu-toggle {
+      display: grid; place-items: center;
+      width: 40px; height: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+    }
+    nav.primary.open {
+      display: flex;
+      position: absolute;
+      top: 68px; left: 0; right: 0;
+      flex-direction: column;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px;
+      gap: 4px;
+    }
+    nav.primary.open a { padding: 12px 14px; }
+  }
+  @media (max-width: 640px) {
+    .item-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 18px; }
+    .hero { padding: 110px 0 72px; }
+    section.block { padding: 72px 0; }
+    .section-head { margin-bottom: 32px; }
+    .trade-row {
+      grid-template-columns: 44px 1fr auto;
+      grid-template-rows: auto auto;
+      padding: 14px 16px;
+      gap: 10px 14px;
+    }
+    .trade-row .icon-wrap { grid-row: span 2; width: 36px; height: 36px; }
+    .trade-row .name { grid-column: 2; grid-row: 1; }
+    .trade-row .price { grid-column: 3; grid-row: 1; }
+    .trade-row .price-usd { display: none; }
+    .trade-row .payment-chip { grid-column: 2; grid-row: 2; justify-self: start; }
+    .trade-row .btn { grid-column: 3; grid-row: 2; justify-self: end; }
+    .pay-card { flex-direction: column; text-align: center; }
+    .negotiation-banner { padding: 32px 20px; }
+    .accent-banner { padding: 22px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .float-wpp { width: 54px; height: 54px; bottom: 18px; right: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────── HEADER ───────── -->
+<header>
+  <div class="container header-inner">
+    <a href="#top" class="brand" aria-label="LW STORE">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--cyan)">
+          <path d="M12 3 L18 12 L12 21 L6 12 Z" />
+          <circle cx="12" cy="12" r="2.2" />
+        </svg>
+      </span>
+      <span class="brand-text">
+        <span class="lw">LW</span><span class="sep">·</span><span class="store">STORE</span>
+      </span>
+    </a>
+
+    <nav class="primary" id="navMenu">
+      <a href="#comprar">Comprar</a>
+      <a href="#vender">Vender</a>
+      <a href="#itens">Itens</a>
+      <a href="#chars">Chars</a>
+      <a href="#pagamento">Pagamento</a>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span class="mode-badge" id="modeBadge" aria-live="polite">
+        <span class="dot"></span>
+        <span class="label">modo</span>
+      </span>
+      <button id="switchModeBtn" aria-label="Trocar modo">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4 4 4"/><path d="M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
+        trocar modo
+      </button>
+      <span class="online-badge">
+        <span class="dot"></span>
+        <span>Online agora</span>
+      </span>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ───────── HERO ───────── -->
+<main id="top">
+<section class="hero container">
+  <!-- 2. main title -->
+  <h1 class="hero-title" aria-label="LW STORE">
+    <span class="lw">LW</span>
+    <svg class="crosshair" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+      <circle cx="16" cy="16" r="11" />
+      <path d="M16 4 V12 M16 20 V28 M4 16 H12 M20 16 H28" />
+    </svg>
+    <span class="st">STORE</span>
+  </h1>
+
+  <!-- 3. technical divider -->
+  <div class="hero-divider" aria-hidden="true">
+    <span class="line"></span>
+    <span class="cap l"></span>
+    <span class="cap r"></span>
+    <span class="diamond-box"></span>
+  </div>
+
+  <!-- 4. subtitle -->
+  <div class="hero-sub">Miracle 7.4 Trader</div>
+  <div class="hero-badges">
+    <span class="b">● ONLINE</span>
+    <span class="b">24/7</span>
+    <span class="b">&lt; 5 MIN RESPOSTA</span>
+  </div>
+  <!-- /HERO TITLE -->
+  <p class="tagline">Mais de <em>1 ano</em> no mercado</p>
+
+  <div class="hero-buttons">
+    <a href="#comprar" class="btn btn-gold">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/>
+        <path d="M3 4 H6 L8 14 H18 L20 7 H8"/>
+      </svg>
+      Quero Comprar
+    </a>
+    <a href="#vender" class="btn btn-cyan">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 V14"/><path d="M8 10 L12 14 L16 10"/><path d="M4 17 V20 H20 V17"/>
+      </svg>
+      Quero Vender
+    </a>
+  </div>
+</section>
+</main>
+
+<!-- Empty state before mode is chosen -->
+<section class="mode-empty container" id="modeEmpty">
+  <div class="frame">
+    <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 4 V14 M7 9 L12 4 L17 9"/>
+    </svg>
+    <div class="msg">Selecione uma opção acima para ver os preços</div>
+  </div>
+</section>
+
+<!-- ───────── COMPRAR ───────── -->
+<section class="block container" id="comprar">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">01 / Compra</div>
+      <h2>Compre comigo</h2>
+      <p>Preços por BP (runas) e por 1k (gold). Quanto mais compra, menos paga. Pagamento via PIX ou Binance, com entrega imediata no jogo.</p>
+    </div>
+    <div class="section-aside">
+      <div class="label">UPDATED</div>
+      <div class="value" id="lastUpdateBuy">—</div>
+    </div>
+  </div>
+
+  <div class="trade-card" id="buyTable"></div>
+</section>
+
+<!-- ───────── VENDER ───────── -->
+<section class="block container" id="vender">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">02 / Venda</div>
+      <h2>Venda pra mim</h2>
+      <p>Pago na hora. PIX ou Binance. Volume = melhor preço. Sem espera, sem enrolação — fechou, recebeu.</p>
+    </div>
+    <div class="section-aside">
+      <div class="label">UPDATED</div>
+      <div class="value" id="lastUpdateSell">—</div>
+    </div>
+  </div>
+
+  <div class="trade-card" id="sellTable"></div>
+</section>
+
+<!-- ───────── ITENS ───────── -->
+<section class="block container" id="itens">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">03 / Inventário</div>
+      <h2>Itens disponíveis</h2>
+      <p>Equipamentos e raros. Atualizado em tempo real, direto do estoque.</p>
+    </div>
+    <div class="section-aside">
+      <div class="label">LIVE</div>
+      <div class="value" id="itemCount">—</div>
+    </div>
+  </div>
+
+  <div class="item-grid" id="itemGrid">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Carregando inventário…</div>
+    </div>
+  </div>
+
+  <div class="accent-banner">
+    <div class="text">
+      Tem um item para vender? Compramos também.
+      <small>Avaliação justa, pagamento na hora, sem burocracia.</small>
+    </div>
+    <a class="btn btn-whatsapp" target="_blank" rel="noopener" href="https://wa.me/5541986136347?text=Ol%C3%A1!%20Tenho%20um%20item%20para%20vender.">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.6-1.5-.9-2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2.1 3.1 5 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ───────── CHARS ───────── -->
+<section class="block container" id="chars">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">04 / Personagens</div>
+      <h2>Chars disponíveis</h2>
+      <p>Personagens prontos. Entrega segura via troca no jogo, com suporte completo durante o processo.</p>
+    </div>
+    <div class="section-aside">
+      <div class="label">LIVE</div>
+      <div class="value" id="charCount">—</div>
+    </div>
+  </div>
+
+  <div class="char-grid" id="charGrid">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Carregando personagens…</div>
+    </div>
+  </div>
+
+  <div class="accent-banner cyan">
+    <div class="text">
+      Quer vender seu char? Faço avaliação gratuita.
+      <small>Avalio level, equipamentos, gold e raridade. Sem compromisso.</small>
+    </div>
+    <a class="btn btn-whatsapp" target="_blank" rel="noopener" href="https://wa.me/5541986136347?text=Ol%C3%A1!%20Quero%20avaliar%20meu%20char%20para%20venda.">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.6-1.5-.9-2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2.1 3.1 5 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
+      Avaliar Meu Char
+    </a>
+  </div>
+</section>
+
+<!-- ───────── PAGAMENTO ───────── -->
+<section class="block container" id="pagamento">
+  <div class="section-head">
+    <div>
+      <div class="section-tag">05 / Pagamento</div>
+      <h2>Métodos de pagamento</h2>
+      <p>Transferência instantânea. Nada de boleto, nada de espera.</p>
+    </div>
+  </div>
+
+  <div class="pay-grid">
+    <div class="pay-card">
+      <div class="icon">
+        <svg width="36" height="36" viewBox="0 0 100 100">
+          <path fill="#32BCAD" d="M61.5,38.7L53,30.2a4.4,4.4,0,0,0-6.2,0L38.5,38.7A2.3,2.3,0,0,1,36.8,39.4H33l13.6,13.6a5,5,0,0,0,7.1,0L67.5,39.4H63.3A2.3,2.3,0,0,1,61.5,38.7Z"/>
+          <path fill="#32BCAD" d="M38.5,61.3l8.5,8.5a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,63.5,60.6H67L53.4,46.9a5,5,0,0,0-7.1,0L32.5,60.6h4.3A2.3,2.3,0,0,1,38.5,61.3Z"/>
+          <path fill="#32BCAD" d="M79.5,43.7l-6.5-6.5H68.8A2.3,2.3,0,0,1,67,36.5L59.1,28.5a4.4,4.4,0,0,0-6.2,0L46.6,34.8l13,13a3.1,3.1,0,0,1,0,4.4l-13,13,6.3,6.3a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,69,62.8H73l6.5-6.5A4.4,4.4,0,0,0,79.5,43.7Z"/>
+          <path fill="#32BCAD" d="M20.5,56.3l6.5,6.5h4.2A2.3,2.3,0,0,1,33,63.5l8.5,8.5a4.4,4.4,0,0,0,6.2,0l6.3-6.3-13-13a3.1,3.1,0,0,1,0-4.4l13-13-6.3-6.3a4.4,4.4,0,0,0-6.2,0L32.9,37.2A2.3,2.3,0,0,1,31.2,37.2H27l-6.5,6.5A4.4,4.4,0,0,0,20.5,56.3Z"/>
+        </svg>
+      </div>
+      <div>
+        <h3 style="color: var(--text);">PIX</h3>
+        <p>Transferência instantânea, qualquer banco, 24 horas por dia. Confirmação automática.</p>
+      </div>
+    </div>
+
+    <div class="pay-card">
+      <div class="icon">
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="#F0B90B">
+          <path d="M50,13 L57,20 L50,27 L43,20Z"/>
+          <path d="M50,73 L57,80 L50,87 L43,80Z"/>
+          <path d="M13,50 L20,43 L27,50 L20,57Z"/>
+          <path d="M73,50 L80,43 L87,50 L80,57Z"/>
+          <path d="M50,33 L67,50 L50,67 L33,50Z"/>
+          <path d="M33,33 L40,26 L50,33 L40,40Z"/>
+          <path d="M67,33 L60,26 L50,33 L60,40Z"/>
+          <path d="M33,67 L40,74 L50,67 L40,60Z"/>
+          <path d="M67,67 L60,74 L50,67 L60,60Z"/>
+        </svg>
+      </div>
+      <div>
+        <h3 style="color: var(--text);">Binance Pay</h3>
+        <p>USDT, BNB ou BRL. Pagamento via app Binance — rápido e sem taxa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── NEGOTIATION BANNER ───────── -->
+<section class="block container">
+  <div class="negotiation-banner">
+    <div class="icon-row" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4 L20 12 L28 13 L22 19 L24 27 L16 23 L8 27 L10 19 L4 13 L12 12 Z" />
+      </svg>
+    </div>
+    <h3>Todos os preços são negociáveis por quantidade.</h3>
+    <p>Quanto maior o volume, melhor a condição. Fale antes de fechar — sempre tem desconto.</p>
+    <a class="btn btn-gold" target="_blank" rel="noopener" href="https://wa.me/5541986136347?text=Ol%C3%A1!%20Quero%20negociar%20um%20volume.">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.6-1.5-.9-2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2.1 3.1 5 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
+      Negociar Agora
+    </a>
+  </div>
+</section>
+
+<!-- ───────── FOOTER ───────── -->
+<footer>
+  <div class="container footer-inner">
+    <div class="legal">
+      <strong style="color: var(--text);">LW Store</strong> © 2025 — Não afiliado ao Miracle 7.4.
+    </div>
+    <a href="https://wa.me/5541986136347" target="_blank" rel="noopener" class="contact">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--whatsapp)"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.6-1.5-.9-2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2.1 3.1 5 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
+      <span class="label">WhatsApp:</span>
+      <span>+55 41 98613-6347</span>
+    </a>
+  </div>
+</footer>
+
+<!-- ───────── FLOATING WPP ───────── -->
+<a class="float-wpp" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp"
+   href="https://wa.me/5541986136347?text=Ol%C3%A1!%20Vim%20pelo%20site%20LW%20Store.">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="#053220">
+    <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.6-1.5-.9-2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 2.1 3.1 5 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/>
+    <path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/>
+  </svg>
+</a>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SVG SPRITE — ícones usados nas linhas das tabelas
+     ════════════════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Rune (símbolo arcano) -->
+    <symbol id="i-rune" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" opacity="0.4"/>
+        <path d="M12 5 L12 19 M8 9 L12 5 L16 9 M8 15 L12 19 L16 15"/>
+      </g>
+    </symbol>
+    <!-- Fireball -->
+    <symbol id="i-fire" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 C 14 7, 17 8, 17 13 C 17 16.5, 14.7 19, 12 19 C 9.3 19, 7 16.5, 7 13 C 7 10, 9 9, 10 6 C 11 8, 11 9, 12 3 Z"/>
+        <circle cx="12" cy="14" r="2.5" opacity="0.5"/>
+      </g>
+    </symbol>
+    <!-- UH (cross / healing) -->
+    <symbol id="i-heal" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="4" opacity="0.3"/>
+        <path d="M12 7 V17 M7 12 H17"/>
+      </g>
+    </symbol>
+    <!-- Explosion -->
+    <symbol id="i-explosion" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 L13.5 9 L20 8 L15 12.5 L20 17 L13 16 L12 21 L11 16 L4 17 L9 12.5 L4 8 L10.5 9 Z"/>
+      </g>
+    </symbol>
+    <!-- HMM (magic missile) -->
+    <symbol id="i-magic" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 19 L19 5"/>
+        <path d="M7 5 L9 7 M5 7 L7 9"/>
+        <circle cx="17" cy="7" r="2"/>
+      </g>
+    </symbol>
+    <!-- Gold (coin) -->
+    <symbol id="i-gold" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="8"/>
+        <circle cx="12" cy="12" r="5" opacity="0.4"/>
+        <path d="M12 8 V16 M10 10 H13 Q14 10 14 11 Q14 12 13 12 H11 Q10 12 10 13 Q10 14 11 14 H14"/>
+      </g>
+    </symbol>
+    <!-- Box (placeholder for item) -->
+    <symbol id="i-box" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 8 L12 3 L21 8 V17 L12 21 L3 17 Z"/>
+        <path d="M3 8 L12 13 L21 8 M12 13 V21" opacity="0.6"/>
+      </g>
+    </symbol>
+    <!-- Shield -->
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 L19 6 V12 C 19 16, 16 19, 12 21 C 8 19, 5 16, 5 12 V6 Z"/>
+        <path d="M9 12 L11.5 14.5 L15 10" opacity="0.7"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ░░  LW STORE  ░░  SCRIPT
+     ═══════════════════════════════════════════════════════════════════════
+     ▸ CONFIGURAÇÃO DAS PLANILHAS GOOGLE SHEETS
+     
+     Substitua os valores abaixo pelas URLs CSV de export das suas planilhas.
+     Para obter a URL CSV de uma planilha pública:
+       1. Abra a planilha → Compartilhar → "Qualquer pessoa com o link"
+       2. Arquivo → Compartilhar → Publicar na web → escolha a aba → CSV
+       3. Copie a URL gerada e cole abaixo
+     
+     Formato esperado das colunas (na ordem, primeira linha = cabeçalho):
+       ITENS:  nome | categoria | preco | estoque | imagem_url | descricao
+       CHARS:  nome | vocacao | level | ml_ou_dist | skill_principal |
+               shielding | equipamentos | preco | imagem_url
+     
+     Campo "equipamentos" usa ponto-e-vírgula (;) como separador.
+     Para imagens do Google Drive, use o link direto de visualização:
+       https://drive.google.com/uc?export=view&id=FILE_ID
+     ═══════════════════════════════════════════════════════════════════════ -->
+<script>
+  // ◆◆◆ COLE AQUI AS URLs DAS PLANILHAS GOOGLE SHEETS ◆◆◆
+  const SHEET_ITENS = "COLE_AQUI_URL_CSV_ITENS";
+  const SHEET_CHARS = "COLE_AQUI_URL_CSV_CHARS";
+
+  // ─── Contato ───
+  const WPP_BASE = "https://wa.me/5541986136347";
+  const wppLink = (text) => `${WPP_BASE}?text=${encodeURIComponent(text)}`;
+
+  // ─── Tabelas hardcoded ───
+  const RUNE_IMG = {
+    uhs: "data:image/png;base64,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",
+    sd:  "data:image/png;base64,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",
+    gfb: "data:image/png;base64,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",
+    hmm: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAFNUlEQVR4AexYLXDbSBT+4tF0FggsCBAIECgQOGAYUGBwIKDAoMAwMKDAMOCAYaFhYMCBgAOGgQYHDAoEAgQOLCgQMFhgsHPjSe77Vk7iNAdSSZlOZ6Lo25+3f+97+/atnAF+8eeNwM/ewLcdeNuBjhZ4c6F9AyaD5E44evfb3eG7o7t0cBjr+336Lr/aDgQEmMT0re+z+XojkAySu/nJEsLs4xXmv19hJny4hNqEZ6v3IOhMIH13GF3F/eGRZwUKIoQa1ubI0gwZ80lxjtP3UxJJ79Dz05nA/+tjgO2uhW5ktnQo5jtJr1knAjqsq88Oy88Vssyg+rZCSXjuQL1xiPCOOzNEcVhQ8UD0+7YikA4UXdK7+acFlTMYFhaLpUOQpXeALC6w7jc1hH5Vb2ZrRYAOAcO/qKTmoWElUxEJ1BKhukgpfy20IlCYITKTY/Te0upA7UNjYVo7hABjLDzLIFTGKz6tCNg0Y4TJqSj93nm4daC/11FNw7Rcr3B+fYIpwRaov4hM8jNGouayY7de3lYE4sq0rnJ6DxRxoktJsAcDCz1yI11qIRE9SfpDKwJSRhaV5au6YvQpId+vQw3hqvzCW9giwOPy6xz5IV0uzZFz58b5KSbcCQUC9PAM2szhfEW3Ken3PLrBQ/7uqfzSLbB0V5gezzHKRzh5P8b5aIbZcoLZ6hTDoxFsYknOoDBFL+40aEPg+zEG965BQlu2JsT+q7rk+7Keyj9A4HFFFyq4rYN8P0tz6JBak2FcTHE6nCIzOQ+1h/M1jo+OMT+5wPzjRXSvzBYQimz4OGGHUisCQOCSAT4EKm8jdC5yKpenBdvA8Ko+oKt5kjF0N8N+GfxWLkfZugIlEejwtCTQrNio2JRflO4il+6HF/V/QadOBFxdIt7GiUGeDWlpB7eha8WFRS9gVa+aGpW/D6fGWGT8NspNDiF2aJkMWo6Lw1ZuyVvYRWSpgUKpGuarKf2/IbO4uWB5RWIlQvCwxtKVGrjAPgQ6PIN2Y82TYQasJzsRcx4NSijbie6zsCuErQrP2yX9UbQisL3dHGxvtweeUUYWleXdtxol3aUiJsMzGOpnE4Pph3P4UEUoYokEm+JhDvAI/EOHpxWB+/V0eSkSqS7/rn2Fal2iyI55WVnofBwfnbCZZabqg0ClhY2nRG9Q0hqD1iMfBlKB6BIhhk5Dq8cmyp64FhoSiI/2IBY6J50IKKZHhen3SCwJ+BiJMpNhTDcaF2fQZWdNDpvsfiMfFvw2ymHSfULteQzaDwUVDshtFhWSvw+zEW/eMeJndAixfXFzjdozUm0cQ2cGhd6qLlGvXZelH8Z2IhCtr6kU40FXgmEtMFXOot7EK301dCJQBwdrTYM0Q2GHxDEmw3OoTT/qK34yzD+dQ6h9jevqKgKk+Qi0fjoRUBh0daBbyOpUJ7XxktL/g0ZHY4xygvniq8OiFC6otokRShGMTkjFA9H+7UTgybIJYLaUCMyeqJVQQDeL7Q9R6kkPdmj3diKgy2zyZwGhpns4X/GToYI+Gfy64kFlvS5x/fUS1zeXqLyDNRlhUYYVNF5op3ozqhMBTbG5XR8Ip38No2L6xeWkPJX1wcORlM6CCGbGYrm+Iq6j8hrfFZ0J7CsQb9qdwBjTlLZNpjQoiXgsxWqHpDcC29vtwZfVGWZ/n+LiZkZ8IWZY1kuUfhWx/LaIllffDjo/GdobAc0qxb7H+t9/oottbhtXU78+0SuBPhV76VyvQ+Clq/fQ741AD0bsNMXbDnQyXw+Df/kd+A8AAP//A8blmAAAAAZJREFUAwAQ71l/7wYh3AAAAABJRU5ErkJggg==",
+    exp: "data:image/png;base64,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",
+  };
+  const BUY_ROWS = [
+    { name: "SD",             desc: "Sudden Death Rune · por BP",     price: "R$ 8,00",  icon: "img:sd",      pay: "PIX / Binance" },
+    { name: "GFB",            desc: "Great Fireball Rune · por BP",   price: "R$ 4,00",  icon: "img:gfb",     pay: "PIX / Binance" },
+    { name: "UHS",            desc: "Ultimate Healing Rune · por BP", price: "R$ 4,00",  icon: "img:uhs",     pay: "PIX / Binance" },
+    { name: "Explosion Rune", desc: "Explosion · por BP",             price: "R$ 5,80",  icon: "img:exp",     pay: "PIX / Binance" },
+    { name: "HMM",            desc: "Heavy Magic Missile · por BP",   price: "R$ 1,80",  icon: "img:hmm",     pay: "PIX / Binance" },
+    { name: "Gold (1k)",      desc: "1.000 gold coins",                price: "R$ 1,60",  icon: "svg:i-gold",  pay: "PIX / Binance" },
+  ];
+
+  const SELL_ROWS = [
+    { name: "SD",             desc: "Sudden Death Rune · por BP",     price: "R$ 7,25", usd: "U$ 0,27", icon: "img:sd",      pay: "PIX / Binance" },
+    { name: "GFB",            desc: "Great Fireball Rune · por BP",   price: "R$ 3,50", usd: "U$ 0,62", icon: "img:gfb",     pay: "PIX / Binance" },
+    { name: "UHS",            desc: "Ultimate Healing Rune · por BP", price: "R$ 3,50", usd: "U$ 0,62", icon: "img:uhs",     pay: "PIX / Binance" },
+    { name: "Explosion",      desc: "Explosion Rune · por BP",        price: "R$ 5,30", usd: "U$ 1,00", icon: "img:exp",     pay: "PIX / Binance" },
+    { name: "HMM",            desc: "Heavy Magic Missile · por BP",   price: "R$ 2,30", usd: "U$ 0,42", icon: "img:hmm",     pay: "PIX / Binance" },
+    { name: "Gold (1k)",      desc: "1.000 gold coins",                price: "R$ 1,45", usd: "U$ 0,27", icon: "svg:i-gold",  pay: "PIX / Binance" },
+  ];
+
+  // ─── CSV parser robusto (respeita aspas) ───
+  function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let field = "";
+    let inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      const next = text[i + 1];
+      if (inQuotes) {
+        if (c === '"' && next === '"') { field += '"'; i++; }
+        else if (c === '"') { inQuotes = false; }
+        else { field += c; }
+      } else {
+        if (c === '"') { inQuotes = true; }
+        else if (c === ',') { row.push(field); field = ""; }
+        else if (c === '\n' || c === '\r') {
+          if (c === '\r' && next === '\n') i++;
+          row.push(field); field = "";
+          if (row.length > 1 || row[0] !== "") rows.push(row);
+          row = [];
+        } else { field += c; }
+      }
+    }
+    if (field !== "" || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  function csvToObjects(text, keys) {
+    const rows = parseCSV(text);
+    if (rows.length < 2) return [];
+    // Skip header row (index 0). Assume column order matches keys.
+    return rows.slice(1)
+      .filter(r => r.some(c => c && c.trim() !== ""))
+      .map(r => {
+        const obj = {};
+        keys.forEach((k, i) => { obj[k] = (r[i] || "").trim(); });
+        return obj;
+      });
+  }
+
+  // ─── Render: trade rows ───
+  function iconHtml(key) {
+    if (key && key.startsWith('img:')) {
+      const k = key.slice(4);
+      return `<img src="${RUNE_IMG[k]}" alt="" width="28" height="28" style="image-rendering:pixelated;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,168,76,0.18))">`;
+    }
+    if (key && key.startsWith('svg:')) {
+      return `<svg width="22" height="22"><use href="#${key.slice(4)}"/></svg>`;
+    }
+    return `<svg width="22" height="22"><use href="#${key}"/></svg>`;
+  }
+
+  function renderBuy() {
+    const el = document.getElementById('buyTable');
+    el.innerHTML = BUY_ROWS.map(r => `
+      <div class="trade-row">
+        <div class="icon-wrap">${iconHtml(r.icon)}</div>
+        <div class="name">${r.name}<small>${r.desc}</small></div>
+        <div class="price">${r.price}</div>
+        <div class="payment-chip" style="display:inline-flex;align-items:center;gap:4px">${PIX_ICON_MINI}PIX&nbsp;·&nbsp;${BNB_ICON_MINI}Binance</div>
+        <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener"
+           href="${wppLink(`Olá! Quero comprar ${r.name} (${r.desc}) por ${r.price}.`)}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
+          Comprar
+        </a>
+      </div>
+    `).join("");
+  }
+
+  function renderSell() {
+    const el = document.getElementById('sellTable');
+    el.innerHTML = SELL_ROWS.map(r => `
+      <div class="trade-row sell">
+        <div class="icon-wrap">${iconHtml(r.icon)}</div>
+        <div class="name">${r.name}<small>${r.desc}</small></div>
+        <div class="price">${r.price}</div>
+        <div class="price-usd">${r.usd}</div>
+        <div class="payment-chip" style="display:inline-flex;align-items:center;gap:4px">${PIX_ICON_MINI}PIX&nbsp;·&nbsp;${BNB_ICON_MINI}Binance</div>
+        <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener"
+           href="${wppLink(`Olá! Quero vender ${r.name} (${r.desc}). Sua oferta é ${r.price}.`)}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>
+          Vender
+        </a>
+      </div>
+    `).join("");
+  }
+
+  // ─── Render: itens ───
+  const WPP_ICON_SMALL = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7 1 3.7 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.7 0-3.4-.5-4.9-1.4l-.3-.2-3.6 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.4 9.9-9.9 9.9z"/></svg>`;
+  const PIX_ICON_MINI = `<svg width="13" height="13" viewBox="0 0 100 100" style="vertical-align:middle;flex-shrink:0"><path fill="#32BCAD" d="M61.5,38.7L53,30.2a4.4,4.4,0,0,0-6.2,0L38.5,38.7A2.3,2.3,0,0,1,36.8,39.4H33l13.6,13.6a5,5,0,0,0,7.1,0L67.5,39.4H63.3A2.3,2.3,0,0,1,61.5,38.7Z"/><path fill="#32BCAD" d="M38.5,61.3l8.5,8.5a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,63.5,60.6H67L53.4,46.9a5,5,0,0,0-7.1,0L32.5,60.6h4.3A2.3,2.3,0,0,1,38.5,61.3Z"/><path fill="#32BCAD" d="M79.5,43.7l-6.5-6.5H68.8A2.3,2.3,0,0,1,67,36.5L59.1,28.5a4.4,4.4,0,0,0-6.2,0L46.6,34.8l13,13a3.1,3.1,0,0,1,0,4.4l-13,13,6.3,6.3a4.4,4.4,0,0,0,6.2,0l8.5-8.5A2.3,2.3,0,0,1,69,62.8H73l6.5-6.5A4.4,4.4,0,0,0,79.5,43.7Z"/><path fill="#32BCAD" d="M20.5,56.3l6.5,6.5h4.2A2.3,2.3,0,0,1,33,63.5l8.5,8.5a4.4,4.4,0,0,0,6.2,0l6.3-6.3-13-13a3.1,3.1,0,0,1,0-4.4l13-13-6.3-6.3a4.4,4.4,0,0,0-6.2,0L32.9,37.2A2.3,2.3,0,0,1,31.2,37.2H27l-6.5,6.5A4.4,4.4,0,0,0,20.5,56.3Z"/></svg>`;
+  const BNB_ICON_MINI = `<svg width="13" height="13" viewBox="0 0 100 100" fill="#F0B90B" style="vertical-align:middle;flex-shrink:0"><path d="M50,13 L57,20 L50,27 L43,20Z"/><path d="M50,73 L57,80 L50,87 L43,80Z"/><path d="M13,50 L20,43 L27,50 L20,57Z"/><path d="M73,50 L80,43 L87,50 L80,57Z"/><path d="M50,33 L67,50 L50,67 L33,50Z"/><path d="M33,33 L40,26 L50,33 L40,40Z"/><path d="M67,33 L60,26 L50,33 L60,40Z"/><path d="M33,67 L40,74 L50,67 L40,60Z"/><path d="M67,67 L60,74 L50,67 L60,60Z"/></svg>`;
+
+  function renderItens(items) {
+    const grid = document.getElementById('itemGrid');
+    document.getElementById('itemCount').textContent = `${items.length} itens`;
+
+    if (!items.length) {
+      grid.innerHTML = `
+        <div class="empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <use href="#i-box"/>
+          </svg>
+          <div class="loading-text">Nenhum item cadastrado ainda</div>
+          <p style="margin-top:10px;font-size:14px">Volte em breve ou fale comigo no WhatsApp.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = items.map(it => {
+      const inStock = (it.estoque || "").toUpperCase() === "SIM";
+      const stockBadge = inStock
+        ? `<span class="badge stock-in">● Em estoque</span>`
+        : `<span class="badge stock-out">● Esgotado</span>`;
+      const imgBox = it.imagem_url
+        ? `<img src="${escapeAttr(it.imagem_url)}" alt="${escapeAttr(it.nome)}" loading="lazy" onerror="this.parentElement.innerHTML='<svg class=&quot;placeholder&quot; width=&quot;56&quot; height=&quot;56&quot; viewBox=&quot;0 0 24 24&quot;><use href=&quot;#i-box&quot;/></svg>'">`
+        : `<svg class="placeholder" width="56" height="56" viewBox="0 0 24 24"><use href="#i-box"/></svg>`;
+
+      return `
+        <div class="card item-card">
+          <div class="img-box">${imgBox}</div>
+          <div class="body">
+            <div class="top-row">
+              <div class="name">${escapeHtml(it.nome)}</div>
+              ${stockBadge}
+            </div>
+            <div>
+              ${it.categoria ? `<span class="badge cat">${escapeHtml(it.categoria)}</span>` : ""}
+            </div>
+            ${it.descricao ? `<div class="desc">${escapeHtml(it.descricao)}</div>` : ""}
+            <div class="price-block">
+              <div class="price">${escapeHtml(it.preco || "—")}</div>
+            </div>
+            <a class="btn btn-whatsapp btn-block btn-sm" target="_blank" rel="noopener"
+               href="${wppLink(`Olá! Tenho interesse no item ${it.nome} (${it.preco}). Está disponível?`)}">
+              ${WPP_ICON_SMALL} Negociar via WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // ─── Render: chars ───
+  function vocClass(voc) {
+    const v = (voc || "").toLowerCase();
+    if (v.includes("druid"))     return "voc-druid";
+    if (v.includes("sorcerer"))  return "voc-sorc";
+    if (v.includes("knight"))    return "voc-ek";
+    if (v.includes("paladin"))   return "voc-rp";
+    return "voc-generic";
+  }
+  function skillLabel(voc) {
+    const v = (voc || "").toLowerCase();
+    if (v.includes("paladin")) return "Distance";
+    if (v.includes("knight"))  return "Skill";
+    return "Magic Level";
+  }
+  function attrLabels(voc) {
+    const v = (voc || "").toLowerCase();
+    if (v.includes("paladin")) return ["Level", "Dist.", "Magic Lv", "Shielding"];
+    if (v.includes("knight"))  return ["Level", "Skill", "Magic Lv", "Shielding"];
+    return ["Level", "Magic Lv", "Skill", "Shielding"];
+  }
+
+  function renderChars(chars) {
+    const grid = document.getElementById('charGrid');
+    document.getElementById('charCount').textContent = `${chars.length} chars`;
+
+    if (!chars.length) {
+      grid.innerHTML = `
+        <div class="empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <use href="#i-shield"/>
+          </svg>
+          <div class="loading-text">Nenhum char cadastrado ainda</div>
+          <p style="margin-top:10px;font-size:14px">Volte em breve ou fale comigo no WhatsApp.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = chars.map(c => {
+      const equipsRaw = c.equipamentos || "";
+      const equips = equipsRaw.split(";").map(s => s.trim()).filter(Boolean);
+      const labels = attrLabels(c.vocacao);
+      const imgBox = c.imagem_url
+        ? `<img src="${escapeAttr(c.imagem_url)}" alt="${escapeAttr(c.nome)}" loading="lazy" onerror="this.parentElement.innerHTML='<div style=&quot;font-family:var(--font-mono);font-size:13px;letter-spacing:0.1em&quot;>📸 Print do personagem</div>'">`
+        : `<div style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.1em">📸 Print do personagem</div>`;
+
+      return `
+        <div class="card char-card">
+          <div class="img-box">${imgBox}</div>
+          <div class="body">
+            <div class="header-row">
+              <div>
+                <div class="name">${escapeHtml(c.nome)}</div>
+              </div>
+              ${c.vocacao ? `<span class="badge ${vocClass(c.vocacao)}">${escapeHtml(c.vocacao)}</span>` : ""}
+            </div>
+            <div class="stats-grid">
+              <div class="stat"><div class="label">${labels[0]}</div><div class="value">${escapeHtml(c.level || "—")}</div></div>
+              <div class="stat"><div class="label">${labels[1]}</div><div class="value cyan">${escapeHtml(c.ml_ou_dist || "—")}</div></div>
+              <div class="stat"><div class="label">${labels[2]}</div><div class="value">${escapeHtml(c.skill_principal || "—")}</div></div>
+              <div class="stat"><div class="label">${labels[3]}</div><div class="value">${escapeHtml(c.shielding || "—")}</div></div>
+            </div>
+            ${equips.length ? `
+              <ul class="equip-list">
+                ${equips.map(e => `<li><span class="check">✓</span><span>${escapeHtml(e)}</span></li>`).join("")}
+              </ul>` : ""}
+            <div class="price-block">
+              <div class="price">${escapeHtml(c.preco || "—")}</div>
+              <div class="unit">via troca segura</div>
+            </div>
+            <a class="btn btn-whatsapp btn-block" target="_blank" rel="noopener"
+               href="${wppLink(`Olá! Tenho interesse no char "${c.nome}" (${c.preco}). Ainda está disponível?`)}">
+              ${WPP_ICON_SMALL} Negociar via WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // ─── Utils de escape ───
+  function escapeHtml(s) {
+    return String(s ?? "").replace(/[&<>"']/g, ch => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[ch]));
+  }
+  function escapeAttr(s) { return escapeHtml(s).replace(/`/g, '&#96;'); }
+
+  // ─── Fetch wrappers com fallback gracioso ───
+  async function loadSheet(url, keys) {
+    if (!url || url.startsWith("COLE_AQUI")) {
+      return { data: [], error: "no-url" };
+    }
+    try {
+      const res = await fetch(url, { mode: 'cors' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      return { data: csvToObjects(text, keys), error: null };
+    } catch (err) {
+      console.warn("[LW Store] sheet fetch failed:", err);
+      return { data: [], error: String(err) };
+    }
+  }
+
+  // ─── Boot ───
+  function formatNow() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(d.getDate())}/${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  async function boot() {
+    renderBuy();
+    renderSell();
+    document.getElementById('lastUpdateBuy').textContent = formatNow();
+    document.getElementById('lastUpdateSell').textContent = formatNow();
+
+    const [itensRes, charsRes] = await Promise.all([
+      loadSheet(SHEET_ITENS, ["nome","categoria","preco","estoque","imagem_url","descricao"]),
+      loadSheet(SHEET_CHARS, ["nome","vocacao","level","ml_ou_dist","skill_principal","shielding","equipamentos","preco","imagem_url"]),
+    ]);
+
+    renderItens(itensRes.data);
+    renderChars(charsRes.data);
+  }
+
+  // ─── Mobile menu ───
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+  document.querySelectorAll('#navMenu a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navMenu').classList.remove('open'));
+  });
+
+  boot();
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  MODE SWITCHING — buyer vs seller (one-way, requires reload to swap)
+  // ═══════════════════════════════════════════════════════════════════
+  const MODE = { buyer: 'buyer', seller: 'seller' };
+  let currentMode = null;
+
+  const sections = {
+    comprar: document.getElementById('comprar'),
+    vender:  document.getElementById('vender'),
+    itens:   document.getElementById('itens'),
+    chars:   document.getElementById('chars'),
+  };
+  const modeBadge = document.getElementById('modeBadge');
+  const modeEmpty = document.getElementById('modeEmpty');
+  const navMenu = document.getElementById('navMenu');
+
+  // hide all gated sections initially
+  Object.values(sections).forEach(s => { if (s) s.style.display = 'none'; });
+
+  // map hero buttons by href anchor
+  const heroButtons = Array.from(document.querySelectorAll('.hero-buttons .btn'));
+  const buttonByHref = {};
+  heroButtons.forEach(b => { buttonByHref[(b.getAttribute('href') || '').replace('#','')] = b; });
+
+  // nav links by href
+  const navLinks = Array.from(navMenu.querySelectorAll('a'));
+  const navByHref = {};
+  navLinks.forEach(a => { navByHref[(a.getAttribute('href') || '').replace('#','')] = a; });
+
+  const switchModeBtn = document.getElementById('switchModeBtn');
+
+  function applyMode(mode, scrollTarget) {
+    if (currentMode === mode) return;
+    currentMode = mode;
+
+    // hide empty state
+    modeEmpty.style.display = 'none';
+
+    if (mode === MODE.buyer) {
+      sections.comprar.style.display = '';
+      sections.itens.style.display = '';
+      sections.chars.style.display = '';
+      sections.vender.style.display = 'none';
+      if (buttonByHref.vender) buttonByHref.vender.style.display = 'none';
+      ['comprar','itens','chars'].forEach(k => { if (buttonByHref[k]) buttonByHref[k].style.display = ''; });
+      if (navByHref.vender) navByHref.vender.style.display = 'none';
+      ['comprar','itens','chars'].forEach(k => { if (navByHref[k]) navByHref[k].style.display = ''; });
+      modeBadge.className = 'mode-badge show buyer';
+      modeBadge.querySelector('.label').textContent = 'modo: comprador';
+    } else if (mode === MODE.seller) {
+      sections.vender.style.display = '';
+      sections.comprar.style.display = 'none';
+      sections.itens.style.display = 'none';
+      sections.chars.style.display = 'none';
+      ['comprar','itens','chars'].forEach(k => { if (buttonByHref[k]) buttonByHref[k].style.display = 'none'; });
+      if (buttonByHref.vender) buttonByHref.vender.style.display = '';
+      ['comprar','itens','chars'].forEach(k => { if (navByHref[k]) navByHref[k].style.display = 'none'; });
+      if (navByHref.vender) navByHref.vender.style.display = '';
+      modeBadge.className = 'mode-badge show seller';
+      modeBadge.querySelector('.label').textContent = 'modo: vendedor';
+    }
+
+    switchModeBtn.classList.add('show');
+
+    requestAnimationFrame(() => {
+      const target = document.getElementById(scrollTarget);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  }
+
+  switchModeBtn.addEventListener('click', () => {
+    const next = currentMode === MODE.buyer ? MODE.seller : MODE.buyer;
+    currentMode = null;
+    applyMode(next, next === MODE.buyer ? 'comprar' : 'vender');
+  });
+
+  // wire hero buttons
+  heroButtons.forEach(btn => {
+    const href = (btn.getAttribute('href') || '').replace('#','');
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentMode) {
+        // mode already locked — just scroll if section still exists
+        const t = document.getElementById(href);
+        if (t) {
+          const top = t.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+        return;
+      }
+      if (href === 'vender') {
+        applyMode(MODE.seller, 'vender');
+      } else {
+        // comprar / itens / chars all trigger buyer mode
+        applyMode(MODE.buyer, href);
+      }
+    });
+  });
+
+  // wire nav links — also lock mode based on which section they point to
+  navLinks.forEach(a => {
+    const href = (a.getAttribute('href') || '').replace('#','');
+    if (!['comprar','vender','itens','chars'].includes(href)) return;
+    a.addEventListener('click', (e) => {
+      if (currentMode) return; // normal anchor behavior
+      e.preventDefault();
+      if (href === 'vender') applyMode(MODE.seller, 'vender');
+      else applyMode(MODE.buyer, href);
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
